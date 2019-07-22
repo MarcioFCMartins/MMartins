@@ -2,7 +2,7 @@
 #'
 #' This function adds a data.frame to an excel file, formatting the header. Also allows to select columns where rows with equal values are merged.
 #' @param excel_file Location of excel file where data.frame will be added
-#' @param sheet_name Name of the sheet inside the file (will replace sheets with same name)
+#' @param sheet_name Name of the sheet inside the file -will replace sheets with same name-
 #' @param df Data.frame to be added to file
 #' @param merge_cols Character vector with names of columns. Categories on assumed to be nested (breaks from columns on the left will be carried on to columns on the right)
 #' @examples

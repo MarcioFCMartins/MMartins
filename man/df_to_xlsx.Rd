@@ -9,7 +9,7 @@ df_to_xlsx(excel_file, sheet_name, df, merge_cols = NULL)
 \arguments{
 \item{excel_file}{Location of excel file where data.frame will be added}
 
-\item{sheet_name}{Name of the sheet inside the file (will replace sheets with same name)}
+\item{sheet_name}{Name of the sheet inside the file -will replace sheets with same name-}
 
 \item{df}{Data.frame to be added to file}
 
