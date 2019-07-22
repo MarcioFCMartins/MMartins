@@ -53,56 +53,64 @@ df_to_xlsx <- function(excel_file, sheet_name, df, merge_cols = NULL){
   # Merge cells of specified columns when they are equal
   if(!is.null(merge_cols)) {
     # Matrix where break points are represented as 1's
-    index_matrix <- matrix(nrow = nrow(df),
+    break_matrix <- matrix(nrow = nrow(df)+1,
                            ncol = length(merge_cols))
-    index_matrix[] <- 0
-    index_matrix[nrow(index_matrix),] <- 1
-    index_matrix[1,] <- 1
+    break_matrix[] <- 0
     # Loop over columns - create break points for each individual column
     for (col_index in 1:length(merge_cols)) {
-
       col_name <- merge_cols[col_index]
       # Get vector of elements in column
       elements  <- df[[col_name]]
 
       # Initiate indices
       first <- 1    # First element in group
-
       # Loop over elements in column
-      for (i in 1:length(elements)) {
-        if (elements[i] != elements[first]) {
+      for (row_index in 1:length(elements)) {
+        if (elements[row_index] != elements[first]) {
           # If 2 sequential elements are diferent, label them as break points
-          index_matrix[i-1,col_index] <- 1
-          index_matrix[i , col_index] <- 1
+          break_matrix[row_index, col_index] <- 1
           # Update start of next group
-          first <- i
+          first <- row_index
         }
       }
     }
 
     # Propagate breaks from previous columns into next one
-    for (col_index in 2:ncol(index_matrix)){
-      for(row_index in 1:nrow(index_matrix)){
-        index_matrix[row_index, col_index] <- sum(index_matrix[row_index,1:col_index])
+    for (col_index in 2:ncol(break_matrix)){
+      for(row_index in 1:nrow(break_matrix)){
+        break_matrix[row_index, col_index] <- sum(break_matrix[row_index,1:col_index])
       }
     }
 
-    index_matrix[index_matrix > 0] <- 1
+    # Make first and last breaks always breaks
+    break_matrix[1,] <- 1
+    break_matrix[nrow(break_matrix),] <- 1
+
+    break_matrix[break_matrix > 0] <- 1
+
 
     # Convert matrix into a list and apply merge function
-    for (i in 1:ncol(index_matrix)){
+    for (i in 1:ncol(break_matrix)){
       col_index <- which(colnames(df) == merge_cols[i])
-      indices <- which(index_matrix[,i] == 1)+1
-      indices <- split(indices, ceiling(seq_along(indices)/2))
+      break_indices <- (which(break_matrix[,col_index] == 1))+1
+      merge_matrix <- matrix(nrow = length(break_indices)-1,
+                             ncol = 2)
+      for (break_i in 1:(length(break_indices)-1)){
+        merge_matrix[break_i,1] <- break_indices[break_i]
+        merge_matrix[break_i,2] <- break_indices[break_i+1] -1
+      }
+      merge_matrix <- merge_matrix[(merge_matrix[,2] - merge_matrix[,1]) > 0,]
+      merge_matrix <- as.vector(t(merge_matrix))
+      indices <- split(merge_matrix, ceiling(seq_along(merge_matrix)/2))
 
-      # Apply merge function to row indices stored in list
       lapply(X = indices,
-             FUN = function(x) mergeCells(wb = wb,
+             FUN = function(x) openxlsx::mergeCells(wb = wb,
                                           sheet = sheet_name,
                                           cols = col_index,
                                           rows = x))
     }
-  } # End of column mergind section
+
+  }
 
   #Save final excel workbook
   openxlsx::saveWorkbook(wb, excel_file, overwrite = TRUE)
