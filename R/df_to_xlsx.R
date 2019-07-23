@@ -9,9 +9,16 @@
 #' df_to_xlsx(excel_file = "./excel.xlsx", sheet_name = "information", df = info_df, merge_cols = c("Continent", "Country"))
 
 df_to_xlsx <- function(excel_file, sheet_name, df, merge_cols = NULL){
+  wb <- openxlsx::loadWorkbook(excel_file)
+
+  # Check some basic conditions before running function
+  stopifnot(is.character(sheet_name),# Was a sheet name provided
+            exists(deparse(substitute(df))), # Was an object provided to df
+            merge_cols %in% colnames(df)) # Are merge columns present in df
+
   # Set minimum column width for when auto column sizing is done
   options("openxlsx.minWidth" = 6)
-  wb <- openxlsx::loadWorkbook(excel_file)
+  print(1)
 
   # Style for column header - bold, centered, wrapped, yellow background
   # and thick border at the bottom
@@ -25,7 +32,7 @@ df_to_xlsx <- function(excel_file, sheet_name, df, merge_cols = NULL){
     halign         = "center")
 
 
-  # Check if sheet name provided exists - remove it if it does
+  # Check if provided sheet name exists - remove it if it does
   if(sheet_name %in% names(wb)){
     openxlsx::removeWorksheet(
       wb,
