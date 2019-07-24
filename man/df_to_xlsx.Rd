@@ -4,7 +4,8 @@
 \alias{df_to_xlsx}
 \title{Add Dataframe to Excel File}
 \usage{
-df_to_xlsx(excel_file, sheet_name, df, merge_cols = NULL)
+df_to_xlsx(excel_file, sheet_name, df, merge_cols = NULL,
+  nested_merge = TRUE)
 }
 \arguments{
 \item{excel_file}{Location of excel file where data.frame will be added}
@@ -13,7 +14,9 @@ df_to_xlsx(excel_file, sheet_name, df, merge_cols = NULL)
 
 \item{df}{Data.frame to be added to file}
 
-\item{merge_cols}{Character vector with names of columns. Categories on assumed to be nested (breaks from columns on the left will be carried on to columns on the right)}
+\item{merge_cols}{Character vector with names of columns.}
+
+\item{nested_merge}{Should merging be done with columns on the right being nested inside the ones on the left?}
 }
 \description{
 This function adds a data.frame to an excel file, formatting the header. Also allows to select columns where rows with equal values are merged.
