@@ -20,7 +20,6 @@ df_to_xlsx <- function(excel_file, sheet_name, df, merge_cols = NULL, nested_mer
 
   # Set minimum column width for when auto column sizing is done
   options("openxlsx.minWidth" = 6)
-  print(1)
 
   # Style for column header - bold, centered, wrapped, yellow background
   # and thick border at the bottom
