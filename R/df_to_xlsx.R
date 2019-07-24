@@ -4,11 +4,12 @@
 #' @param excel_file Location of excel file where data.frame will be added
 #' @param sheet_name Name of the sheet inside the file -will replace sheets with same name-
 #' @param df Data.frame to be added to file
-#' @param merge_cols Character vector with names of columns. Categories on assumed to be nested (breaks from columns on the left will be carried on to columns on the right)
+#' @param merge_cols Character vector with names of columns.
+#' @param nest_merge Should merging be done with columns on the right being nested inside the ones on the left?
 #' @examples
 #' df_to_xlsx(excel_file = "./excel.xlsx", sheet_name = "information", df = info_df, merge_cols = c("Continent", "Country"))
 
-df_to_xlsx <- function(excel_file, sheet_name, df, merge_cols = NULL){
+df_to_xlsx <- function(excel_file, sheet_name, df, merge_cols = NULL, nested_merge = TRUE){
   wb <- openxlsx::loadWorkbook(excel_file)
 
   # Check some basic conditions before running function
@@ -82,10 +83,12 @@ df_to_xlsx <- function(excel_file, sheet_name, df, merge_cols = NULL){
       }
     }
 
-    # Propagate breaks from previous columns into next one
-    for (col_index in 2:ncol(break_matrix)){
-      for(row_index in 1:nrow(break_matrix)){
-        break_matrix[row_index, col_index] <- sum(break_matrix[row_index,1:col_index])
+    if(nested_merge){
+      # Propagate breaks from previous columns into next one
+      for (col_index in 2:ncol(break_matrix)){
+        for(row_index in 1:nrow(break_matrix)){
+          break_matrix[row_index, col_index] <- sum(break_matrix[row_index,1:col_index])
+        }
       }
     }
 
