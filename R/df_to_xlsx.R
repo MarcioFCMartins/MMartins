@@ -5,7 +5,7 @@
 #' @param sheet_name Name of the sheet inside the file -will replace sheets with same name-
 #' @param df Data.frame to be added to file
 #' @param merge_cols Character vector with names of columns.
-#' @param nest_merge Should merging be done with columns on the right being nested inside the ones on the left?
+#' @param nested_merge Should merging be done with columns on the right being nested inside the ones on the left?
 #' @examples
 #' df_to_xlsx(excel_file = "./excel.xlsx", sheet_name = "information", df = info_df, merge_cols = c("Continent", "Country"))
 
