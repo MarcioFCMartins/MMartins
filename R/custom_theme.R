@@ -3,6 +3,7 @@
 #' Sets up the basic look of my ggplot2 themes and abstracts some of the options
 #' @param serif Changes all fonts to serif. Defaults to FALSE
 #' @param grid Should plots contain grid lines at major breaks? Can be FALSE (default), "x", "y" or "xy"
+#' @export
 
 theme_custom <- function(serif = FALSE, grid = FALSE) {
   font_family <- ifelse(serif, "serif", "sans")

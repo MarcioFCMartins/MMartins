@@ -8,6 +8,7 @@
 #' @param nested_merge Should merging be done with columns on the right being nested inside the ones on the left?
 #' @examples
 #' df_to_xlsx(excel_file = "./excel.xlsx", sheet_name = "information", df = info_df, merge_cols = c("Continent", "Country"))
+#' @export
 
 df_to_xlsx <- function(excel_file, sheet_name, df, merge_cols = NULL, nested_merge = TRUE){
   wb <- openxlsx::loadWorkbook(excel_file)

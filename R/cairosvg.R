@@ -4,6 +4,7 @@
 #' The function is not called directly, but within ggsave
 #' @examples
 #' ggsave("folder", plot ,device = cairosvg, width = 25, height = 10, units = "cm")
+#' @export
 
 
 # CairoSVG function for ggplot2 -------------------------------------------
