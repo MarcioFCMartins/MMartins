@@ -2,4 +2,7 @@
 
 export(cairosvg)
 export(df_to_xlsx)
+export(fct_reorder_within)
+export(scale_x_reordered)
+export(scale_y_reordered)
 export(theme_custom)
