@@ -5,7 +5,7 @@
 #' @param grid Should plots contain grid lines at major breaks? Can be FALSE (default), "x", "y" or "xy"
 #' @export
 
-theme_custom <- function(serif = FALSE, grid = FALSE) {
+theme_custom <- function(serif = FALSE, grid = FALSE, axis = "xy") {
   font_family <- ifelse(serif, "serif", "sans")
 
   grid_x  <-  if (grid == "x" | grid == "xy" | grid == "yx") {
@@ -19,6 +19,19 @@ theme_custom <- function(serif = FALSE, grid = FALSE) {
   } else {
     element_blank()
   }
+
+  axis_x  <-  if (axis == "x" | axis == "xy" | axis == "yx") {
+    element_line(colour = "#bfbebe")
+  } else {
+    element_blank()
+  }
+
+  axis_y  <-  if (axis == "y" | axis == "xy" | axis == "yx") {
+    element_line(colour = "#bfbebe")
+  } else {
+    element_blank()
+  }
+
 
   theme(
     text = element_text(colour = "#646467", size = 11, family = font_family),
@@ -35,7 +48,8 @@ theme_custom <- function(serif = FALSE, grid = FALSE) {
     panel.grid.minor   = element_blank(),
     #axis.title.x       = element_text(margin = margin(5,0,0,0, "pt")),
     #axis.title.y       = element_text(margin = margin(0,5,0,0, "pt")),
-    axis.line          = element_line(colour = "#bfbebe"),
+    axis.line.x        = axis_x,
+    axis.line.y        = axis_y,
     axis.ticks         = element_line(colour = "#bfbebe"),
     axis.text          = element_text(size = 10),
     plot.margin        = unit(c(1,1,0.5,0.5),"lines"),

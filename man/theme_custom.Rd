@@ -4,7 +4,7 @@
 \alias{theme_custom}
 \title{A Custom ggplot2 Theme}
 \usage{
-theme_custom(serif = FALSE, grid = FALSE)
+theme_custom(serif = FALSE, grid = FALSE, axis = "xy")
 }
 \arguments{
 \item{serif}{Changes all fonts to serif. Defaults to FALSE}
