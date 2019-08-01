@@ -32,7 +32,6 @@ theme_custom <- function(serif = FALSE, grid = FALSE, axis = "xy") {
     element_blank()
   }
 
-
   theme(
     text = element_text(colour = "#646467", size = 11, family = font_family),
     plot.title         = element_text(size=13, hjust = 0, face = "bold"),
@@ -41,7 +40,7 @@ theme_custom <- function(serif = FALSE, grid = FALSE, axis = "xy") {
     strip.text         = element_text(colour = "#505050", angle=0, size = 12),
     strip.placement    = "outside",
     panel.background   = element_rect(fill="white"),
-    panel.spacing      = unit(c(15,15), "pt"),
+    #panel.spacing      = unit(c(15,15), "pt"),  This creates errors when many facets are used
     panel.border       = element_blank(),
     panel.grid.major.x = grid_x,
     panel.grid.major.y = grid_y,
