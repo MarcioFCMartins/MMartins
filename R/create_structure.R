@@ -1,27 +1,14 @@
 #' Create folder structure
 #'
-#' This function creates folders inside your project folder to help organize your files
+#' This function allows you use cairosvg with ggsave - generally gives higher quality results than default svg engine.
+#' The function is not called directly, but within ggsave
 #' @examples
-#' create_structure()
+#' ggsave("folder", plot ,device = cairosvg, width = 25, height = 10, units = "cm")
 #' @export
 
 
-# Create folder structure
-create_structure <- function() {
-  folders <- c("./1_documentation",
-               "./2_planning_recourses",
-               "./3_data",
-               "./4_code",
-               "./5_outputs",
-               "./6_manuscripts",
-               "./z_photo_backups")
-
-  lapply(folders,
-         function(path) if(!dir.exists(path)){
-           dir.create(path, FALSE)})
-
-  download.file(
-    "https://github.com/MarcioFCMartins/MMartins/raw/master/project_structure/3_data/clean_data.xlsx",
-    "./3_data/clean_data.xlsx")
-
+# CairoSVG function for ggplot2 -------------------------------------------
+# Solves some issues with standard svg device - mainly usage of symbols
+create_structure <- function(path){
+  #test
 }
