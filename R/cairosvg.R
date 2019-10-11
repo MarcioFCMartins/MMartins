@@ -1,4 +1,4 @@
-#' Cair SVG for ggsave
+#' Cairo SVG for ggsave
 #'
 #' This function allows you use cairosvg with ggsave - generally gives higher quality results than default svg engine.
 #' The function is not called directly, but within ggsave
