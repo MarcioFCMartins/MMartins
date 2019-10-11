@@ -1,4 +1,4 @@
-#' Cairo SVG for ggsave
+#' Create folder structure
 #'
 #' This function allows you use cairosvg with ggsave - generally gives higher quality results than default svg engine.
 #' The function is not called directly, but within ggsave
@@ -9,7 +9,6 @@
 
 # CairoSVG function for ggplot2 -------------------------------------------
 # Solves some issues with standard svg device - mainly usage of symbols
-cairosvg <- function(filename, width, height){
-  library(Cairo)
-  CairoSVG(file = filename, width = width, height = height)
+create_structure <- function(path){
+  #test
 }

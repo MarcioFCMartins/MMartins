@@ -2,7 +2,7 @@
 % Please edit documentation in R/cairosvg.R
 \name{cairosvg}
 \alias{cairosvg}
-\title{Cair SVG for ggsave}
+\title{Cairo SVG for ggsave}
 \usage{
 cairosvg(filename, width, height)
 }
