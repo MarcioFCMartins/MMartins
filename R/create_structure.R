@@ -11,6 +11,7 @@ create_structure <- function() {
   folders <- c("./1_documentation",
                "./2_planning_recourses",
                "./3_data",
+               "./3_data/raw",
                "./4_code",
                "./5_outputs",
                "./6_manuscripts",
