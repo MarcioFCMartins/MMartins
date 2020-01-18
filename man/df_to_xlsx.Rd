@@ -4,8 +4,7 @@
 \alias{df_to_xlsx}
 \title{Add Dataframe to Excel File}
 \usage{
-df_to_xlsx(excel_file, sheet_name, df, merge_cols = NULL,
-  nested_merge = TRUE)
+df_to_xlsx(excel_file, sheet_name, df, merge_cols = NULL, nested_merge = TRUE)
 }
 \arguments{
 \item{excel_file}{Location of excel file where data.frame will be added}
