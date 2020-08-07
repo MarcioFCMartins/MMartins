@@ -30,8 +30,19 @@ paste_table <- function() {
 #' @rdname paste_table
 #' @export
 copy_table <- function(obj, size = 4096) {
+  os <- Sys.info()[['sysname']]
+
+  if(os == "Windows"){
   clip <- paste('clipboard-', size, sep = '')
   f <- file(description = clip, open = 'w')
   write.table(obj, f, row.names = FALSE, sep = '\t')
   close(f)
+  } else if(os == "Linux"){
+    con <- pipe("xclip -selection clipboard -i", open="w")
+    write.table(obj, con, sep="\t", row.names=FALSE)
+    close(con)
+  } else {
+    message("Function not implemented for this operating system")
+  }
 }
+
