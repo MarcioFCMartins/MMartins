@@ -11,7 +11,7 @@
 #' @source "Using the Windows Clipboard, or Passing Data Quickly From Excel to R and Back Again"
 #' \url{https://www.r-bloggers.com/using-the-windows-clipboard-or-passing-data-quickly-from-excel-to-r-and-back-again/}
 #' @source "Stackoverflow"
-#' \url https://stackoverflow.com/questions/10959521/how-to-write-to-clipboard-on-ubuntu-linux-in-r
+#' \url{https://stackoverflow.com/questions/10959521/how-to-write-to-clipboard-on-ubuntu-linux-in-r}
 #'
 #' @examples
 #' # Import table in clipboard as an object

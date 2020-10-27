@@ -9,7 +9,7 @@
 \url{https://www.r-bloggers.com/using-the-windows-clipboard-or-passing-data-quickly-from-excel-to-r-and-back-again/}
 
 "Stackoverflow"
-\url https://stackoverflow.com/questions/10959521/how-to-write-to-clipboard-on-ubuntu-linux-in-r
+\url{https://stackoverflow.com/questions/10959521/how-to-write-to-clipboard-on-ubuntu-linux-in-r}
 }
 \usage{
 paste_table()
