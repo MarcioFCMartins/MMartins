@@ -10,7 +10,7 @@
 #' df_to_xlsx(excel_file = "./excel.xlsx", sheet_name = "information", df = info_df, merge_cols = c("Continent", "Country"))
 #' @export
 
-df_to_xlsx <- function(excel_file, sheet_name, df, merge_cols = NULL, nested_merge = TRUE){
+df_to_xlsx <- function(excel_file, sheet_name, df, auto_size_cols = TRUE, merge_cols = NULL, nested_merge = TRUE){
   wb <- openxlsx::loadWorkbook(excel_file)
 
   # Check some basic conditions before running function
@@ -53,10 +53,12 @@ df_to_xlsx <- function(excel_file, sheet_name, df, merge_cols = NULL, nested_mer
                       headerStyle = header_style)
 
   # Auto size columns to fit all the text
-  openxlsx::setColWidths(wb,
-                         sheet = sheet_name,
-                         cols  = 1:ncol(df),
-                         widths = "auto")
+  if(auto_size_cols){
+    openxlsx::setColWidths(wb,
+                           sheet = sheet_name,
+                          cols  = 1:ncol(df),
+                           widths = "auto")
+    }
 
   # Merge cells of specified columns when they are equal
   if(!is.null(merge_cols)) {
