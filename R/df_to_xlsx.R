@@ -12,7 +12,20 @@
 #' @export
 
 df_to_xlsx <- function(excel_file, sheet_name, df, auto_size_cols = TRUE, merge_cols = NULL, nested_merge = TRUE){
-  wb <- openxlsx::loadWorkbook(excel_file)
+
+  if(file.exists(excel_file)){
+    wb <- openxlsx::loadWorkbook(excel_file)             # Load excel file if it exists
+  } else {
+    input <- readline("This file does not exist, create a new one? (y/n)")
+
+    if(tolower(input) == "y"){
+      wb <- openxlsx::createWorkbook()
+      message("New excel file was created")
+
+    } else {
+      return(message("Please provide the correct filename"))
+    }
+  }
 
   # Check some basic conditions before running function
   stopifnot(is.character(sheet_name),# Was a sheet name provided
