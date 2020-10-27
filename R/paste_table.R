@@ -10,6 +10,7 @@
 #'
 #' @source "Using the Windows Clipboard, or Passing Data Quickly From Excel to R and Back Again"
 #' \url{https://www.r-bloggers.com/using-the-windows-clipboard-or-passing-data-quickly-from-excel-to-r-and-back-again/}
+#' \url https://stackoverflow.com/questions/10959521/how-to-write-to-clipboard-on-ubuntu-linux-in-r
 #'
 #' @examples
 #' # Import table in clipboard as an object
@@ -38,9 +39,9 @@ copy_table <- function(obj, size = 4096) {
   write.table(obj, f, row.names = FALSE, sep = '\t')
   close(f)
   } else if(os == "Linux"){
-    con <- pipe("xclip -selection clipboard -i", open="w")
+    con <- pipe("xclip -selection c", open="w")
+    on.exit(close(con))
     write.table(obj, con, sep="\t", row.names=FALSE)
-    close(con)
   } else {
     message("Function not implemented for this operating system")
   }
