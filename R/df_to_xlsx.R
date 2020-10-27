@@ -4,8 +4,9 @@
 #' @param excel_file Location of excel file where data.frame will be added
 #' @param sheet_name Name of the sheet inside the file -will replace sheets with same name-
 #' @param df Data.frame to be added to file
-#' @param merge_cols Character vector with names of columns.
-#' @param nested_merge Should merging be done with columns on the right being nested inside the ones on the left?
+#' @param auto_size_cols Should column width be changed based on their contents? TRUE or FALSE, defaults to TRUE
+#' @param merge_cols Names of columns that should be merged vertically when they have the same value. Default is no merging, expects a character vector
+#' @param nested_merge Should merging be done with columns on the right being nested inside the ones on the left? TRUE or FALSE
 #' @examples
 #' df_to_xlsx(excel_file = "./excel.xlsx", sheet_name = "information", df = info_df, merge_cols = c("Continent", "Country"))
 #' @export
