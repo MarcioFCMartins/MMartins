@@ -2,7 +2,6 @@
 
 export(cairosvg)
 export(copy_table)
-export(create_structure)
 export(df_to_xlsx)
 export(fct_reorder_within)
 export(paste_table)
