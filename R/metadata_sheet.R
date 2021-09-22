@@ -1,6 +1,6 @@
 #' Create MetaData Sheet
 #'
-#' This function adds a data.frame to an excel file, formatting the header. Also allows to select columns where rows with equal values are merged.
+#' WIP This function adds a data.frame to an excel file, formatting the header. Also allows to select columns where rows with equal values are merged.
 #' @param excel_file Location of excel file where data.frame will be added
 #' @param df Data.frame to be added to file
 #' @param merge_cols Character vector with names of columns.
