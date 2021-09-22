@@ -3,7 +3,7 @@
 #'
 
 research_project <- function(path, ...) {
-  # Create folders
+  # Create folders -----------------------------------
   folders <- paste0(
     path,
     c("",
@@ -26,7 +26,7 @@ research_project <- function(path, ...) {
          function(path) if(!dir.exists(path)){
            dir.create(path, FALSE)})
 
-  # Create README.txt
+  # Create README.txt ---------------------------------------
   writeLines(
     c("# Metadata",
       "What is this project?",
@@ -75,5 +75,11 @@ research_project <- function(path, ...) {
       "|",
       "`-- photo-backups\t\t\tPhotographic backup of field tables or others"),
     paste0(path, "/README.txt")
+  )
+
+  # Download files -------------------------------------
+  download.file(
+    "https://github.com/MarcioFCMartins/MMartins/blob/master/workflow-files/metadata-sheet.xlsx?raw=true",
+    paste0(path, "/02-data/metadata-template.xlsx")
   )
 }
