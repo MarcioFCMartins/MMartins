@@ -8,7 +8,7 @@
 #' @param allow_new_cols Should columns with names NOT present in the template
 #' be allowed? Setting this to true breaks the data standardization
 #' @return Nothing, this function is used for its side effects - saving a file
-
+#' @export
 
 create_excel_from_template <- function(
     x,

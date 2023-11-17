@@ -2,9 +2,11 @@
 
 export(cairosvg)
 export(copy_table)
+export(create_excel_from_template)
 export(df_to_xlsx)
 export(fct_reorder_within)
 export(paste_table)
 export(scale_x_reordered)
 export(scale_y_reordered)
 export(theme_custom)
+importFrom(utils,download.file)

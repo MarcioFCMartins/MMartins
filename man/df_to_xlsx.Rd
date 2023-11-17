@@ -26,6 +26,9 @@ df_to_xlsx(
 
 \item{nested_merge}{Should merging be done with columns on the right being nested inside the ones on the left? TRUE or FALSE}
 }
+\value{
+Excel file with data.frame added
+}
 \description{
 This function adds a data.frame to an excel file, formatting the header. Also allows to select columns where rows with equal values are merged.
 }
