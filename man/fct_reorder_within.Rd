@@ -34,7 +34,7 @@ In the scale functions, extra arguments passed on to
 \code{\link[ggplot2]{scale_x_discrete}} or \code{\link[ggplot2]{scale_y_discrete}}.}
 }
 \description{
-This function was copied word by word from David Robinson's Personal R Package (https://github.com/dgrtwo/drlib)
+This function was copied word for word from David Robinson's Personal R Package (https://github.com/dgrtwo/drlib)
 Reorder a column before plotting with faceting, such that the values are ordered
 within each facet. This requires two functions: \code{reorder_within} applied to
 the column, then either \code{scale_x_reordered} or \code{scale_y_reordered} added

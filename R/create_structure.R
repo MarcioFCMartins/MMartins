@@ -1,24 +1,23 @@
 #' This function is called by Rstudio when a Research project rproj template is created
 #' Defines folder structure and creates a README
-#'
+#' @importFrom utils download.file
 
 research_project <- function(path, ...) {
   # Create folders -----------------------------------
   folders <- paste0(
     path,
     c("",
-      "/01-documentation",
-      "/01-documentation/planning-recourses",
-      "/01-documentation/financial",
-      "/02-data",
-      "/02-data/raw",
-      "/02-data/clean",
-      "/02-data/analysis",
-      "/03-scripts",
-      "/04-outputs",
-      "/05-analysis",
-      "/05-analysis/manuscripts",
-      "/05-analysis/reports",
+      "/docs",
+      "/docs/planning-recourses",
+      "/docs/financial",
+      "/data",
+      "/data/raw",
+      "/data/clean",
+      "/scripts",
+      "/outputs",
+      "/analysis",
+      "/analysis/manuscripts",
+      "/analysis/reports",
       "/photo-backups")
   )
 
@@ -42,11 +41,11 @@ research_project <- function(path, ...) {
       "|",
       "+-- project-name.Rproj",
       "|",
-      "+-- 01-documentation\t\t\tLegal, financial and logistic documents",
+      "+-- docs\t\t\tLegal, financial and logistic documents",
       "|\t|",
       "|\t`-- planning-resources",
       "|",
-      "+-- 02-data\t\t\t\tData used to prepare the analysis and outputs",
+      "+-- data\t\t\t\tData used to prepare the analysis and outputs",
       "|\t|",
       "|\t+-- raw\t\t\t\t\tData as collected - NOT ALTERED IN ANY WAY",
       "|\t|",
@@ -58,14 +57,14 @@ research_project <- function(path, ...) {
       "|\t\t`-- *-README.txt\t\tData dictionary for data files",
       "|",
       "|",
-      "+-- 03-scripts\t\t\t\tScripts used for analysis ",
+      "+-- scripts\t\t\t\tScripts used for analysis ",
       "|\t|",
       "|\t+-- 0-process-data.R\t\t\tProcess raw data into clean",
       "|\t`-- k-*.R\t\t\t\tScripts for other processes",
       "|",
-      "+-- 04-outputs\t\t\t\tOutputs of scripts - figures, tables, models, etc",
+      "+-- outputs\t\t\t\tOutputs of scripts - figures, tables, models, etc",
       "|",
-      "+-- 05-analysis\t\t\t\tDocuments written about the data and outputs",
+      "+-- analysis\t\t\t\tDocuments written about the data and outputs",
       "|\t|",
       "|\t+-- reports",
       "|\t|",
