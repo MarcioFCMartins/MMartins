@@ -18,11 +18,15 @@ create_excel_from_template(
 
 \item{file}{Location where to save the formatted xlsx}
 
-\item{all_columns}{Whether to include all columns from the template in the
-output file (empty columns will be filled in 'NA')}
+\item{sheet_name}{Name of the sheet to save the data to}
 
-\item{allow_new_cols}{Should columns with names NOT present in the template
-be allowed? Setting this to true breaks the data standardization}
+\item{template_name}{Name of the template to use as a header}
+
+\item{all_columns}{Should all columns from the template be included in the
+output file, even if not present in data? (empty columns will be filled in 'NA')}
+
+\item{allow_new_cols}{Should columns NOT present in the template
+be allowed?}
 }
 \value{
 Nothing, this function is used for its side effects - saving a file

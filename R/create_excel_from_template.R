@@ -3,10 +3,12 @@
 #'
 #' @param x Table to format (data frame or tibble)
 #' @param file Location where to save the formatted xlsx
-#' @param all_columns Whether to include all columns from the template in the
-#' output file (empty columns will be filled in 'NA')
-#' @param allow_new_cols Should columns with names NOT present in the template
-#' be allowed? Setting this to true breaks the data standardization
+#' @param sheet_name Name of the sheet to save the data to
+#' @param template_name Name of the template to use as a header
+#' @param all_columns Should all columns from the template be included in the
+#' output file, even if not present in data? (empty columns will be filled in 'NA')
+#' @param allow_new_cols Should columns NOT present in the template
+#' be allowed?
 #' @return Nothing, this function is used for its side effects - saving a file
 #' @export
 
@@ -49,6 +51,12 @@ create_excel_from_template <- function(
         )
 
         names(template_header) <- template_cols
+
+        template <- wb_clone_worksheet(template, old = template_name, new = "template")
+        sheets_to_remove <- openxlsx2::wb_get_sheet_names(template)[openxlsx2::wb_get_sheet_names(template) != "template"]
+        for(r_sheet in sheets_to_remove) {
+            template <- openxlsx2::wb_remove_worksheet(template, sheet = r_sheet)
+        }
     }
 
     # Check if all columns are present in template ---------------------------
@@ -112,11 +120,14 @@ create_excel_from_template <- function(
             "Here are the most probable fixes:\n",
             name_fix_suggestions
         )
+
     } else if (!all(data_cols %in% template_cols) & allow_new_cols) {
+
         warning(
             "You are adding new columns, which were not present in the template.\n",
             "Verify that this is what you want to do"
         )
+
     }
 
     # Prepare data to export ----------------------------------------------
@@ -149,18 +160,14 @@ create_excel_from_template <- function(
         template_header <- template_header[ , final_col_order]
         x <- rbind(template_header, x)
     }
-
     # Make the fourth row the machine readable names
     x[4, ] <- colnames(x)
-
-
-
 
     # Write data to file ---------------------------------------------------
     # Add our data to a new sheet in the template workbook
     wb_data <- template |>
-        openxlsx2::wb_add_worksheet("data") |>
-        openxlsx2::wb_add_data("data", x = x, col_names = FALSE)
+        openxlsx2::wb_add_worksheet(sheet_name) |>
+        openxlsx2::wb_add_data(sheet_name, x = x, col_names = FALSE)
 
     # Match column styles to styles present in template
     template_col_match <- match(final_col_order, template_cols)
@@ -170,22 +177,40 @@ create_excel_from_template <- function(
         }
         header_col_style <- openxlsx2::wb_get_cell_style(
             wb_data,
-            template_name,
+            "template",
             dims = openxlsx2::wb_dims(rows = 1:4, cols = template_col_match[i])
         )
 
         wb_data <- openxlsx2::wb_set_cell_style(
             wb_data,
-            "data",
+            sheet_name,
             dims = openxlsx2::wb_dims(rows = 1:4, cols = i),
             style = header_col_style
         )
     }
 
-    # Remove all worksheets except for the data one, and rename it to user selected name
-    if(sheet_name != "data") {
-        wb_data <- openxlsx2::wb_clone_worksheet(wb_data, old = "data", new = sheet_name)
+    # Match the column widths to the template widths
+    template_sheet_index <- which(openxlsx2::wb_get_sheet_names(template) == "template")
+    data_sheet_index <- which(openxlsx2::wb_get_sheet_names(wb_data) == sheet_name)
+    for(i in 1:length(final_col_order)) {
+        if(is.na(template_col_match[i])) {
+            # If column was not in template, default width is used
+            wb_data[["worksheets"]][[data_sheet_index]][["cols_attr"]][i] <- NA
+        } else {
+            # Else, copy column width from template
+            wb_data[["worksheets"]][[data_sheet_index]][["cols_attr"]][i] <-
+            template[["worksheets"]][[template_sheet_index]][["cols_attr"]][template_col_match[i]]
+        }
     }
+
+    # Match the row heights to the template heights
+    for(i in 1:nrow(template_header)) {
+        wb_data[["worksheets"]][[data_sheet_index]]$sheet_data$row_attr$ht[i] <-
+            wb_data[["worksheets"]][[template_sheet_index]]$sheet_data$row_attr$ht[i]
+    }
+
+
+    # Remove all worksheets except for the data one, and rename it to user selected name
     sheets_to_remove <- openxlsx2::wb_get_sheet_names(wb_data)[openxlsx2::wb_get_sheet_names(wb_data) != sheet_name]
     for(r_sheet in sheets_to_remove) {
         wb_data <- openxlsx2::wb_remove_worksheet(wb_data, sheet = r_sheet)
@@ -193,12 +218,4 @@ create_excel_from_template <- function(
 
     # Save to file
     wb_save(wb_data, file = file, overwrite = TRUE)
-
-
-
-
-
-
-
-
 }
