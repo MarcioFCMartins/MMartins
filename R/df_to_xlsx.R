@@ -75,16 +75,16 @@ df_to_xlsx <- function(excel_file, sheet_name, df, auto_size_cols = TRUE, merge_
 
   # Style for column header - bold, centered, wrapped, yellow background
   # and thick border at the bottom
-  header_dims <- wb_dims(x = df, select = "col_names")
+  header_dims <- openxlsx2::wb_dims(x = df, select = "col_names")
 
   wb <- wb |>
     openxlsx2::wb_add_border(
       dims = header_dims,
-      top_color = wb_color(hex = "#FF000000"),
+      top_color = openxlsx2::wb_color(hex = "#FF000000"),
       top_style = "thin",
-      bottom_color = wb_color(hex = "#FF000000"),
+      bottom_color = openxlsx2::wb_color(hex = "#FF000000"),
       bottom_style = "thick")|>
-    openxlsx2::wb_add_fill(dims = header_dims, color = wb_color(hex = "#ffbb70")) |>
+    openxlsx2::wb_add_fill(dims = header_dims, color = openxlsx2::wb_color(hex = "#ffbb70")) |>
     openxlsx2::wb_add_font(dims = header_dims, bold = TRUE) |>
     openxlsx2::wb_add_cell_style(
       dims = header_dims, horizontal = "center", vertical = "center")
@@ -135,7 +135,7 @@ df_to_xlsx <- function(excel_file, sheet_name, df, auto_size_cols = TRUE, merge_
 
       for(i in 1:nrow(indices)){
         index <- indices[i, ]
-        wb <- wb_merge_cells(
+        wb <- openxlsx2::wb_merge_cells(
           wb = wb,
           sheet = sheet_name,
           dims = openxlsx2::wb_dims(
