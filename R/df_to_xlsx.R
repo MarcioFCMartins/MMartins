@@ -45,7 +45,7 @@ df_to_xlsx <- function(excel_file, sheet_name, df, auto_size_cols = TRUE, merge_
     wb <- openxlsx2::wb_add_worksheet(wb, sheet = sheet_name)
     # Re-order sheets as original
     new_sheet_order <- match(openxlsx2::wb_get_sheet_names(wb), sheet_order)
-    wb <- wb_set_order(wb, new_sheet_order)
+    wb <- openxlsx2::wb_set_order(wb, new_sheet_order)
 
     message(
       "Your workbook already had a sheet named ", sheet_name,
