@@ -8,7 +8,8 @@ create_excel_from_template(
   x,
   file,
   sheet_name = "data",
-  template_name = NULL,
+  template_file = NULL,
+  template_sheet = NULL,
   all_columns = FALSE,
   allow_new_cols = FALSE
 )
@@ -20,13 +21,15 @@ create_excel_from_template(
 
 \item{sheet_name}{Name of the sheet to save the data to}
 
-\item{template_name}{Name of the template to use as a header}
+\item{template_sheet}{Name of the sheet in the template to use}
 
 \item{all_columns}{Should all columns from the template be included in the
 output file, even if not present in data? (empty columns will be filled in 'NA')}
 
 \item{allow_new_cols}{Should columns NOT present in the template
 be allowed?}
+
+\item{template}{Path for template to use}
 }
 \value{
 Nothing, this function is used for its side effects - saving a file

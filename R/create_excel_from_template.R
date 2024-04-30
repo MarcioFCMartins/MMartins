@@ -4,7 +4,8 @@
 #' @param x Table to format (data frame or tibble)
 #' @param file Location where to save the formatted xlsx
 #' @param sheet_name Name of the sheet to save the data to
-#' @param template_name Name of the template to use as a header
+#' @param template Path for template to use
+#' @param template_sheet Name of the sheet in the template to use
 #' @param all_columns Should all columns from the template be included in the
 #' output file, even if not present in data? (empty columns will be filled in 'NA')
 #' @param allow_new_cols Should columns NOT present in the template
@@ -16,15 +17,10 @@ create_excel_from_template <- function(
     x,
     file,
     sheet_name = "data",
-    template_name = NULL,
+    template_file = NULL,
+    template_sheet = NULL,
     all_columns = FALSE,
     allow_new_cols = FALSE) {
-    # Download template
-    template_loc <- tempfile()
-    download.file(
-        "https://ualg365-my.sharepoint.com/:x:/g/personal/mfcmartins_ualg_pt/EeSI73WtkIhAvIda1uHKpzcBT6lyLHCFvm5C6MM7VtrKsg?download=1",
-        template_loc
-    )
 
     # Read template ---------------------------------------------------------
     template <- openxlsx2::wb_load(template_loc)
