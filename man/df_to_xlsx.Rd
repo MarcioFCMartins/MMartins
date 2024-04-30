@@ -6,8 +6,8 @@
 \usage{
 df_to_xlsx(
   excel_file,
-  sheet_name,
-  df,
+  sheet_names,
+  dfs,
   auto_size_cols = TRUE,
   merge_cols = NULL,
   nested_merge = TRUE
@@ -16,15 +16,15 @@ df_to_xlsx(
 \arguments{
 \item{excel_file}{Location of excel file where data.frame will be added}
 
-\item{sheet_name}{Name of the sheet inside the file -will replace sheets with same name-}
-
-\item{df}{Data.frame to be added to file}
-
 \item{auto_size_cols}{Should column width be changed based on their contents? TRUE or FALSE, defaults to TRUE}
 
-\item{merge_cols}{Names of columns that should be merged vertically when they have the same value. Default is no merging, expects a character vector}
+\item{merge_cols}{Names of columns that should be merged vertically when they have the same value. Default is no merging, expects a character vector. Currently only works if you pass a single df}
 
 \item{nested_merge}{Should merging be done with columns on the right being nested inside the ones on the left? TRUE or FALSE}
+
+\item{sheet_name}{Names of the sheet inside the file -will replace sheets with same name-}
+
+\item{df}{List of data.frame to be added to file}
 }
 \value{
 Excel file with data.frame added
