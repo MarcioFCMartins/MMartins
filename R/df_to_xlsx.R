@@ -31,10 +31,10 @@ df_to_xlsx <- function(excel_file, sheet_names, dfs, auto_size_cols = TRUE, merg
   # Check some basic conditions before running function
   stopifnot(
     is.character(sheet_names),        # Was a sheet name provided
-    !missing(dfs), # Was an object provided to df
-    merge_cols %in% colnames(dfs),     # Are merge columns present in df
-    is.logical(auto_size_cols),      # Is auto_size_cols a logical
-    length(sheet_names) == length(dfs) # Are the number of sheet names and dataframes the same
+    !missing(dfs),                    # Was an object provided to df
+    merge_cols %in% colnames(dfs),    # Are merge columns present in df
+    is.logical(auto_size_cols),       # Is auto_size_cols a logical
+    length(sheet_names) == length(dfs)# Are the number of sheet names and dataframes the same
   )
 
   # Set minimum column width for when auto column sizing is done
@@ -86,7 +86,8 @@ df_to_xlsx <- function(excel_file, sheet_names, dfs, auto_size_cols = TRUE, merg
         wb <- openxlsx2::wb_add_data(
             wb = wb,
             x = df,
-            sheet = sheet_name
+            sheet = sheet_name,
+            na.strings = "NA"
         )
 
         # Auto size columns to fit all the text
