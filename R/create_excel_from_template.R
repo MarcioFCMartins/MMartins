@@ -163,7 +163,7 @@ create_excel_from_template <- function(
     # Add our data to a new sheet in the template workbook
     wb_data <- template |>
         openxlsx2::wb_add_worksheet(sheet_name) |>
-        openxlsx2::wb_add_data(sheet_name, x = x, col_names = FALSE)
+        openxlsx2::wb_add_data(sheet_name, x = x, col_names = FALSE, na.strings = "NA")
 
     # Match column styles to styles present in template
     template_col_match <- match(final_col_order, template_cols)
