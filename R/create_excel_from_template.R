@@ -23,8 +23,8 @@ create_excel_from_template <- function(
     allow_new_cols = FALSE) {
 
     # Read template ---------------------------------------------------------
-    template <- openxlsx2::wb_load(template_loc)
-    if (is.null(template_name)) {
+    template <- openxlsx2::wb_load(template_file)
+    if (is.null(template_sheet)) {
         available_sheets <- openxlsx2::wb_get_sheet_names(template)
         stop(
             "Please choose a template to use. Available templates are:",
@@ -33,7 +33,7 @@ create_excel_from_template <- function(
     } else {
         template_header <- openxlsx2::read_xlsx(
             template,
-            template_name,
+            template_sheet,
             col_names = FALSE,
             skip_empty_rows = TRUE,
             skip_empty_cols = TRUE
@@ -48,7 +48,7 @@ create_excel_from_template <- function(
 
         names(template_header) <- template_cols
 
-        template <- wb_clone_worksheet(template, old = template_name, new = "template")
+        template <- openxlsx2::wb_clone_worksheet(template, old = template_sheet, new = "template")
         sheets_to_remove <- openxlsx2::wb_get_sheet_names(template)[openxlsx2::wb_get_sheet_names(template) != "template"]
         for(r_sheet in sheets_to_remove) {
             template <- openxlsx2::wb_remove_worksheet(template, sheet = r_sheet)
@@ -213,5 +213,5 @@ create_excel_from_template <- function(
     }
 
     # Save to file
-    wb_save(wb_data, file = file, overwrite = TRUE)
+    openxlsx2::wb_save(wb_data, file = file, overwrite = TRUE)
 }
